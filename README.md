@@ -1,3 +1,7 @@
+# destiny-rank-calculator
+
+[![Build Status](https://ci.andrewmellen.org/api/badges/mellena1/destiny-rank-calculator/status.svg)](https://ci.andrewmellen.org/mellena1/destiny-rank-calculator)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
