@@ -57,7 +57,7 @@ export class Destiny extends Component<any, DestinyState> {
                 size="lg"
                 type="number"
                 pattern="\d*"
-                placeholder="Enter Current Points Here"
+                placeholder="Enter Current Points"
                 onChange={this.onPointChange}
               />
             </Form.Group>
