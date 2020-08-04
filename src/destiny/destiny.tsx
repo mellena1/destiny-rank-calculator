@@ -63,7 +63,7 @@ export class Destiny extends Component<any, DestinyState> {
             </Form.Group>
           </Row>
           <Row>
-            <Table striped bordered hover>
+            <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
                   <th>Rank</th>
