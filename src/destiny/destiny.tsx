@@ -42,6 +42,10 @@ interface DestinyState {
   currentPoints: number;
 }
 
+function PointRangeToString(range: PointRange): string {
+  return range[1] >= 0 ? `${range[0]}-${range[1]}` : `${range[0]}`;
+}
+
 export class Destiny extends Component<any, DestinyState> {
   render(): ReactNode {
     return (
@@ -90,17 +94,14 @@ export class Destiny extends Component<any, DestinyState> {
 
   generateTableRows(): ReactNode {
     return this.state.ranks.map((rank) => {
-      const rankRange =
-        rank.pointRange[1] >= 0
-          ? `${rank.pointRange[0]}-${rank.pointRange[1]}`
-          : `${rank.pointRange[0]}`;
+      const rankRange = PointRangeToString(rank.pointRange);
       const neededPoints = this.pointsToGetToRank(
         this.state.currentPoints,
         rank
       );
       const neededWins = this.numberOfWinsToGetToRank(neededPoints, 0);
       return (
-        <tr>
+        <tr key={rank.name}>
           <td>{rank.name}</td>
           <td>{rankRange}</td>
           <td>{neededPoints > 0 ? `${neededPoints}` : "-"}</td>
@@ -111,6 +112,9 @@ export class Destiny extends Component<any, DestinyState> {
   }
 
   getWinstreakBonus(wins: number): number {
+    if (wins < 1) {
+      return 0;
+    }
     if (wins >= 5) {
       return 120;
     }
