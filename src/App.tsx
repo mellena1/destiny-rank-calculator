@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import { Destiny } from './destiny/destiny';
+import React from "react";
+import "./App.css";
+import { Destiny } from "./destiny/destiny";
 
 function App() {
   return (
