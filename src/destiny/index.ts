@@ -1,1 +1,1 @@
-export { Destiny } from './destiny';
+export { Destiny } from "./destiny";
