@@ -5,8 +5,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 
-import './destiny.css';
-
 type PointRange = [number, number];
 
 const DESTINYRANKS: DestinyRank[] = [
