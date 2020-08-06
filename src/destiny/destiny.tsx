@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 
+import "./destiny.css";
+
 type PointRange = [number, number];
 
 const DESTINYRANKS: DestinyRank[] = [
@@ -40,6 +42,7 @@ interface DestinyRank {
 interface DestinyState {
   ranks: DestinyRank[];
   currentPoints: number;
+  winStreak: number;
 }
 
 function PointRangeToString(range: PointRange): string {
@@ -53,13 +56,28 @@ export class Destiny extends Component<any, DestinyState> {
         <Container>
           <Row className="justify-content-center">
             <Form.Group>
-              <Form.Control
-                size="lg"
-                type="number"
-                pattern="\d*"
-                placeholder="Enter Current Points"
-                onChange={this.onPointChange}
-              />
+              <Form.Label>Current Points</Form.Label>
+                <Form.Control
+                  name="currentPoints"
+                  size="lg"
+                  type="number"
+                  pattern="\d*"
+                  placeholder="Enter Current Points"
+                  onChange={this.onNumberChange}
+                />
+            </Form.Group>
+          </Row>
+          <Row className="justify-content-center">
+            <Form.Group>
+              <Form.Label>Win Streak</Form.Label>
+                <Form.Control
+                  name="winStreak"
+                  size="lg"
+                  type="number"
+                  pattern="\d*"
+                  placeholder="Enter Win Streak"
+                  onChange={this.onNumberChange}
+                />
             </Form.Group>
           </Row>
           <Row>
@@ -80,15 +98,18 @@ export class Destiny extends Component<any, DestinyState> {
     );
   }
 
-  onPointChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const numPoints = parseInt(event.target.value);
-    if (isNaN(numPoints) || numPoints < 0) {
-      return;
+  onNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
+    let num = parseInt(event.target.value);
+
+    if (isNaN(num) || num < 0) {
+      num = 0;
     }
+
+    console.log(event.target.name);
 
     this.setState({
       ...this.state,
-      currentPoints: numPoints,
+      [event.target.name]: num,
     });
   }
 
@@ -99,7 +120,7 @@ export class Destiny extends Component<any, DestinyState> {
         this.state.currentPoints,
         rank
       );
-      const neededWins = this.numberOfWinsToGetToRank(neededPoints, 0);
+      const neededWins = this.numberOfWinsToGetToRank(neededPoints, this.state.winStreak);
       return (
         <tr key={rank.name}>
           <td>{rank.name}</td>
@@ -140,9 +161,10 @@ export class Destiny extends Component<any, DestinyState> {
     this.state = {
       ranks: DESTINYRANKS,
       currentPoints: 0,
+      winStreak: 0,
     };
 
-    this.onPointChange = this.onPointChange.bind(this);
+    this.onNumberChange = this.onNumberChange.bind(this);
     this.generateTableRows = this.generateTableRows.bind(this);
   }
 }
